@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "compile": "tsc --noEmit",
+    "compile:watch": "tsc --noEmit --watch"
   },
   "dependencies": {
     "bootstrap": "5.2.1",
