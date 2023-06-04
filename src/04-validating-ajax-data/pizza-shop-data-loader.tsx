@@ -2,10 +2,11 @@ import type { FC } from 'react';
 import useSWR from 'swr';
 
 import type { ExtraIngredients, Pizza } from './types';
+import { extraIngredientsSchema } from './schemas';
 
 import { PizzaShop } from './pizza-shop';
 
-const server = 'http://localhost:3000';
+const server = 'http://localhost:3002';
 
 export const PizzaShopDataLoader: FC = () => {
   const { data: pizzas, error: pizzasError } = useSWR<Pizza[]>(
@@ -18,7 +19,7 @@ export const PizzaShopDataLoader: FC = () => {
     useSWR<ExtraIngredients>(
       '/api/bad-extra-ingredients.json',
       (resource, init) =>
-        fetch(`${server}${resource}`, init).then((res) => res.json())
+        fetch(`${server}${resource}`, init).then((res) => res.json()).then(data => extraIngredientsSchema.parse(data))
     );
 
   if (pizzasError || extraIngredientsError) {
